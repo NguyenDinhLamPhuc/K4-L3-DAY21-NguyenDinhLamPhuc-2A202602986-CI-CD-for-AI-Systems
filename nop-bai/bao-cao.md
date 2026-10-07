@@ -68,9 +68,9 @@ Cần nêu được:
 
 | Khó khăn | Nguyên nhân | Cách giải quyết |
 |---|---|---|
-| ___ | ___ | ___ |
-| ___ | ___ | ___ |
-| ___ | ___ | ___ |
+| MLflow không khởi động được khi chạy huấn luyện. | Phiên bản SQLAlchemy không tương thích với MLflow 2.13.0. | Cài lại SQLAlchemy 2.0.30 và thiết lập MLflow dùng SQLite local. |
+| DVC không thể đẩy dữ liệu lên Amazon S3. | IAM user thiếu quyền S3 và DVC chưa được cấu hình đúng remote S3. | Bổ sung policy tối thiểu cho bucket, cài `dvc[s3]` và cấu hình remote `s3://.../dvc`. |
+| API trên EC2 không khởi động hoặc không truy cập được từ máy cá nhân. | File `serve.py` chưa được copy lên EC2 và Security Group chưa mở port 8080. | Copy file lên đúng `/home/ubuntu/src/serve.py`, gắn IAM Role đọc S3 và mở inbound TCP 8080 từ My IP. |
 
 ---
 
@@ -80,10 +80,10 @@ Cần nêu được:
 
 | | f1_score | accuracy |
 |---|---|---|
-| Bước 2 (chỉ `train_batch1`) | ___ | ___ |
-| Bước 3 (thêm `train_batch2`) | ___ | ___ |
+| Bước 2 (chỉ `train_batch1`) | 0.7149 | 0.8740 |
+| Bước 3 (thêm `train_batch2`) | 0.7354 | 0.8820 |
 
-**Nhận xét:** ___
+**Nhận xét:**  Khi bổ sung train_batch2, f1_score tăng từ 0.7149 lên 0.7354 và accuracy tăng từ 0.8740 lên 0.8820. Điều này cho thấy dữ liệu mới giúp mô hình nhận diện lớp thu nhập cao tốt hơn, đồng thời cải thiện độ chính xác tổng thể. Pipeline đã tự động thực hiện toàn bộ quy trình từ cập nhật dữ liệu, huấn luyện, kiểm tra quality gate đến triển khai lại model trên EC2.
 
 <!--
 Một câu trả lời trung thực kiểu "f1 giảm 0,01 vì dữ liệu mới cùng phân phối, không mang
@@ -91,13 +91,3 @@ thêm thông tin mới" được đánh giá cao hơn kết luận sai rằng th
 -->
 
 ---
-
-## 5. Phần Bonus Đã Thực Hiện (nếu có)
-
-<!-- Xóa cả mục 5 nếu không làm bonus. Mỗi bonus tối đa 1 dòng. -->
-
-- [ ] Bonus 1 - Tracking MLflow từ xa với DagsHub: ___
-- [ ] Bonus 2 - Điều chỉnh ngưỡng quyết định: ___
-- [ ] Bonus 3 - Báo cáo precision / recall tự động: ___
-- [ ] Bonus 4 - Hoàn trả về phiên bản trước: ___
-- [ ] Bonus 5 - Cảnh báo lệch lạc dữ liệu: ___
